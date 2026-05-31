@@ -13,25 +13,29 @@ document.getElementById("current-1").textContent = 0;
 document.querySelector(".dice").style.display = 'none';
 var diceDom = document.querySelector(".dice");
 document.querySelector(".btn-roll").addEventListener("click", shooShid); 
-
 function shooShid(){
     // Шооны аль талаараа буусныг хадгалах хувьсагч. Энэ нь 1-6 хооронд утга авна.
     var diceScore = Math.floor(Math.random() * 6) + 1;
     diceDom.style.display = 'block';
     diceDom.src = 'dice-' + diceScore + '.png';
-    if(diceScore != 1){
+    if(diceScore !== 1){
         roundScore += diceScore; 
         document.querySelector("#current-" + activePlayer).textContent = roundScore; 
     }
     else{
-        scores[activePlayer] += roundScore;
-        if(scores[activePlayer] >= 100){
-            console.log(activePlayer + "-r toglogch yallaa.")
-            return;
-        }
-        document.querySelector("#score-" + activePlayer).textContent = scores[activePlayer];
-        roundScore = 0; 
-        document.querySelector("#current-" + activePlayer).textContent = roundScore;
+        roundScore = 0;
+
+        document.querySelector("#current-" + activePlayer)
+                .textContent = 0;
+
         activePlayer = activePlayer === 0 ? 1 : 0;
+
+        document.querySelector(".player-0-panel")
+                .classList.toggle('active');
+
+        document.querySelector(".player-1-panel")
+                .classList.toggle('active');
+
+        diceDom.style.display = 'none';
     }
 }
